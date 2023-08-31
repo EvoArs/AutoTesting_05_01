@@ -7,6 +7,11 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Keys;
 import ru.netology.data.DataGenerator;
 
+import java.time.Duration;
+
+import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Condition.visible;
+import static com.codeborne.selenide.Selectors.byText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
@@ -25,11 +30,16 @@ class DeliveryTest {
         var daysToAddForSecondMeeting = 7;
         var secondMeetingDate = DataGenerator.generateDate(daysToAddForSecondMeeting);
         $("[data-test-id=city] input").setValue(validUser.getCity());
-        $("[data-test-id=date] input").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME, Keys.DELETE));
-        $("[data-test-id=data] input").setValue(firstMeetingDate);
+        $("span[data-test-id='date'] input.input__control").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME, Keys.DELETE));
+        $("span[data-test-id='date'] input.input__control").setValue(firstMeetingDate);
         $("[data-test-id=name] input").setValue(validUser.getName());
         $("[data-test-id=phone] input").setValue(validUser.getPhone());
         $("[data-test-id=agreement]").click();
+        $(byText("Запланировать")).click();
+        $("div.notification__title").shouldHave(text("Успешно!"),
+                Duration.ofSeconds(15)).shouldBe(visible);
+        $(".notification__content").shouldHave(text("Встреча успешно запланирована на " + firstMeetingDate),
+                Duration.ofSeconds(15)).shouldBe(visible);
 
     }
 }

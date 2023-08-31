@@ -14,7 +14,7 @@ public class DataGenerator {
     }
 
     public static String generateDate(int shift) {
-        return LocalDate.now().plusDays(shift).format(DateTimeFormatter.ofPattern("dd.MM.yyyyy"));
+        return LocalDate.now().plusDays(shift).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"));
     }
 
     public static String generateCity() {
