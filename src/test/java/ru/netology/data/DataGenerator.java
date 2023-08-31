@@ -13,8 +13,8 @@ public class DataGenerator {
     private DataGenerator() {
     }
 
-    private String generateDate(int addDay) {
-        return LocalDate.now().plusDays(addDay).format(DateTimeFormatter.ofPattern("dd.MM.yyyyy"));
+    public static String generateDate(int shift) {
+        return LocalDate.now().plusDays(shift).format(DateTimeFormatter.ofPattern("dd.MM.yyyyy"));
     }
 
     public static String generateCity() {
@@ -39,7 +39,7 @@ public class DataGenerator {
         private Registration() {
         }
 
-        public static UserInfo generatorUser(String locale) {
+        public static UserInfo generateUser(String locale) {
             return new UserInfo(generateCity(), generateName(locale), generatePhone(locale));
         }
     }
