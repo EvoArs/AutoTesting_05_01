@@ -40,6 +40,15 @@ class DeliveryTest {
                 Duration.ofSeconds(15)).shouldBe(visible);
         $(".notification__content").shouldHave(text("Встреча успешно запланирована на " + firstMeetingDate),
                 Duration.ofSeconds(15)).shouldBe(visible);
+        //Перепланирование
+        $("span[data-test-id='date'] input.input__control").sendKeys(Keys.chord(Keys.SHIFT, Keys.HOME, Keys.DELETE));
+        $("span[data-test-id='date'] input.input__control").setValue(secondMeetingDate);
+        $(byText("Запланировать")).click();
+        $(byText("Перепланировать")).click();
+        $("div.notification__title").shouldHave(text("Успешно!"),
+                Duration.ofSeconds(15)).shouldBe(visible);
+        $(".notification__content").shouldHave(text("Встреча успешно запланирована на " + secondMeetingDate),
+                Duration.ofSeconds(15)).shouldBe(visible);
 
     }
 }
